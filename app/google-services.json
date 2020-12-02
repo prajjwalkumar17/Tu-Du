@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "168443275630",
+    "firebase_url": "https://tu-du-d3ed6.firebaseio.com",
+    "project_id": "tu-du-d3ed6",
+    "storage_bucket": "tu-du-d3ed6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168443275630:android:68b5731f9338134cfd397f",
+        "android_client_info": {
+          "package_name": "com.rejointech.tu_du"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168443275630-kf57gmcftc99ekosrsfekducl336mirm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rejointech.tu_du",
+            "certificate_hash": "8b933b2eda42ea92dc212872637637c3837929ab"
+          }
+        },
+        {
+          "client_id": "168443275630-41ppr1es3qpm82bdhg6hcuimq4td1fjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfUcj10ESlMl6Ts_URIrA1kLJs1l0AiXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168443275630-41ppr1es3qpm82bdhg6hcuimq4td1fjd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
