@@ -9,5 +9,33 @@
         android:id="@+id/splashfrag"
         android:name="com.rejointech.tu_du.Login.Splashfrag"
         android:label="fragment_splashfrag"
-        tools:layout="@layout/fragment_splashfrag" />
+        tools:layout="@layout/fragment_splashfrag" >
+        <action
+            android:id="@+id/action_splashfrag_to_signInfrag"
+            app:destination="@id/signInfrag"
+            app:popUpTo="@id/splashfrag"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/signUpfrag"
+        android:name="com.rejointech.tu_du.Login.SignUpfrag"
+        android:label="fragment_sign_upfrag"
+        tools:layout="@layout/fragment_sign_upfrag" >
+        <action
+            android:id="@+id/action_signUpfrag_to_signInfrag"
+            app:destination="@id/signInfrag"
+            app:popUpTo="@id/signUpfrag"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/signInfrag"
+        android:name="com.rejointech.tu_du.Login.SignInfrag"
+        android:label="fragment_sign_infrag"
+        tools:layout="@layout/fragment_sign_infrag" >
+        <action
+            android:id="@+id/action_signInfrag_to_signUpfrag"
+            app:destination="@id/signUpfrag"
+            app:popUpTo="@id/signInfrag"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>
