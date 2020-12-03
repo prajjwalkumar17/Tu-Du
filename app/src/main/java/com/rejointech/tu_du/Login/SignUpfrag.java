@@ -42,21 +42,31 @@ import java.util.Objects;
 
 public class SignUpfrag extends Fragment {
     View root;
-    TextInputLayout account,passwordtt,name;
-    Button useGoogle,registerBot,alreadyUserBot;
+    TextInputLayout account, passwordtt, name;
+    Button useGoogle, registerBot, alreadyUserBot;
     private SharedPreferences pref, pref1;
     private SharedPreferences.Editor editor, editor1;
     private FirebaseAuth auth;
     private DatabaseReference database;
-    Login_Cred login_cred,login_credGoogle;
+    Login_Cred login_cred, login_credGoogle;
     private GoogleSignInClient mGoogleSignInClient;
     static String namet, tokenUID, accountt, id;
-    private int guh=2;
+    private int guh = 2;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            startActivity(new Intent(getContext(), Home.class));
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root=inflater.inflate(R.layout.fragment_sign_upfrag, container, false);
+        root = inflater.inflate(R.layout.fragment_sign_upfrag, container, false);
 
 
 

@@ -42,7 +42,7 @@ public class SignInfrag extends Fragment {
 
     View root;
     TextInputLayout account,passwordtt;
-    Button useGoogle,forgotPassBot,loginBot,newUser;
+    Button useGoogle, forgotPassBot, loginBot, newUser;
     private SharedPreferences pref, pref1;
     private SharedPreferences.Editor editor, editor1;
     private FirebaseAuth auth;
@@ -50,13 +50,22 @@ public class SignInfrag extends Fragment {
     Login_Cred login_cred, login_cred1;
     private GoogleSignInClient mGoogleSignInClient;
     private String tokenUID;
-    private int guh=2;
+    private int guh = 2;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            startActivity(new Intent(getContext(), Home.class));
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root=inflater.inflate(R.layout.fragment_sign_infrag, container, false);
+        root = inflater.inflate(R.layout.fragment_sign_infrag, container, false);
 
 //TODO: all muticals::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         muticals();
