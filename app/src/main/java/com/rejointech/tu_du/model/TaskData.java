@@ -23,7 +23,7 @@ public class TaskData {
         this.ref = ref;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
