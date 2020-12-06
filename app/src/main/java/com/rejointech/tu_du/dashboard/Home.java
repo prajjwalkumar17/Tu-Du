@@ -1,5 +1,4 @@
 package com.rejointech.tu_du.dashboard;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,8 +28,6 @@ import com.rejointech.tu_du.model.TaskData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-
 public class Home extends AppCompatActivity {
     RecyclerView recyclerView;
     List<TaskData> list = new ArrayList<>();
@@ -46,7 +43,6 @@ public class Home extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +59,6 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialogOpener();
-
-
                 botSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -134,7 +128,6 @@ public class Home extends AppCompatActivity {
     private void addDataToRecyclerView() {
         databaseReference
                 .child(Objects.requireNonNull(auth.getUid()))
-//               .child(String.valueOf(System.currentTimeMillis()))
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -148,12 +141,10 @@ public class Home extends AppCompatActivity {
                             recyclerView.setAdapter(todoTasks);
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(Home.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
 }

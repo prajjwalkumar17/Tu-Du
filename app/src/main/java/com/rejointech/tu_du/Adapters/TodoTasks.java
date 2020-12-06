@@ -1,5 +1,5 @@
 package com.rejointech.tu_du.Adapters;
-
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,15 +8,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rejointech.tu_du.R;
 import com.rejointech.tu_du.model.TaskData;
 
 import java.util.List;
-
 public class TodoTasks extends RecyclerView.Adapter<TodoTasks.viewholderr> {
     Context context;
     List<TaskData> list;
@@ -38,21 +40,18 @@ public class TodoTasks extends RecyclerView.Adapter<TodoTasks.viewholderr> {
     @Override
     public void onBindViewHolder(@NonNull viewholderr holder, int position) {
         taskData = list.get(position);
-        holder.checkBox.setText(taskData.getTaskData());
+        holder.textView.setText(taskData.getTaskData());
         holder.checkBox.setChecked(taskData.getStatus());
-
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+        holder.textView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.update);
-                EditText editText1 = dialog.findViewById(R.id.editText1);
-                Button SaveBot1 = dialog.findViewById(R.id.SaveBot1);
-                Button CancelBot1 = dialog.findViewById(R.id.deleteBot);
+                holder.cardi.setCardBackgroundColor(R.color.light_blue_200);
+                holder.cardi.setElevation(20);
+                holder.deleBott.setVisibility(View.VISIBLE);
+                holder.editBott.setVisibility(View.VISIBLE);
             }
         });
-
-
     }
 
 
@@ -68,10 +67,18 @@ public class TodoTasks extends RecyclerView.Adapter<TodoTasks.viewholderr> {
     public static class viewholderr extends RecyclerView.ViewHolder {
 
         public CheckBox checkBox;
+        public TextView textView;
+        public Button editBott, deleBott;
+        public CardView cardi;
 
         public viewholderr(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkBoxer);
+            textView = itemView.findViewById(R.id.textView);
+            editBott = itemView.findViewById(R.id.editBott);
+            deleBott = itemView.findViewById(R.id.deleteBott);
+            cardi = itemView.findViewById(R.id.cardi);
+
         }
     }
 }

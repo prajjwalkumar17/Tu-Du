@@ -1,5 +1,6 @@
 package com.rejointech.tu_du.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.rejointech.tu_du.MainActivity;
 import com.rejointech.tu_du.R;
+import com.rejointech.tu_du.dashboard.Home;
 
 public class Splashfrag extends Fragment {
+    FirebaseAuth auth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -25,7 +30,14 @@ public class Splashfrag extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Navigation.findNavController(root).navigate(R.id.action_splashfrag_to_signInfrag);
+                auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+                if (user != null) {
+                    startActivity(new Intent(getContext(), Home.class));
+                    getActivity().finish();
+                } else {
+                    Navigation.findNavController(root).navigate(R.id.action_splashfrag_to_signInfrag);
+                }
             }
         },3000);
 
