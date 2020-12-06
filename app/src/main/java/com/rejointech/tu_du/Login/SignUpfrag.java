@@ -51,7 +51,7 @@ public class SignUpfrag extends Fragment {
     Login_Cred login_cred, login_credGoogle;
     private GoogleSignInClient mGoogleSignInClient;
     static String namet, tokenUID, accountt, id;
-    private int guh = 2;
+    private int gui = 2;
 
     @Override
     public void onStart() {
@@ -143,7 +143,7 @@ public class SignUpfrag extends Fragment {
             @Override
             public void onClick(View view) {
                 googleChooser();
-                googleSignUp(guh);
+                googleSignUp(gui);
             }
         });
 
@@ -196,8 +196,8 @@ public class SignUpfrag extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         addtoSharedPref();
-                        Toast.makeText(getContext(), "hellow honey", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getContext(), Home.class));
+                        getActivity().finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -238,15 +238,15 @@ public class SignUpfrag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == guh) {
+        if (requestCode == gui) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 tokenUID = account.getIdToken();
-                accountt=account.getEmail();
-                namet=account.getDisplayName();
+                accountt = account.getEmail();
+                namet = account.getDisplayName();
                 id = account.getId();
                 firebaseAuthWithGoogle(tokenUID);
                 // Signed in successfully, show authenticated UI.
@@ -271,7 +271,7 @@ public class SignUpfrag extends Fragment {
                 } else {
                     // If sign in fails, display a message to the user.
 
-                    Toast.makeText(getContext(), "YOU ARE FUCKED!!!!!", Toast.LENGTH_SHORT).show();
+
                     // ...
                 }
             }
@@ -295,8 +295,8 @@ public class SignUpfrag extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         addDataToPrefGOOGLE(login_credGoogle.getUsername(), login_credGoogle.getUid(), login_credGoogle.getEmail_id());
-                        Toast.makeText(getContext(), "hellow honey", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getContext(),Home.class));
+                        startActivity(new Intent(getContext(), Home.class));
+                        getActivity().finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

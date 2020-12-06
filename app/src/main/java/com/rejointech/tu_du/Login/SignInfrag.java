@@ -58,6 +58,7 @@ public class SignInfrag extends Fragment {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             startActivity(new Intent(getContext(), Home.class));
+            getActivity().finish();
         }
     }
 
@@ -96,12 +97,12 @@ public class SignInfrag extends Fragment {
 
 //TODO all functions::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     private void muticals() {
-        useGoogle=root.findViewById(R.id.useGoogle);
-        forgotPassBot=root.findViewById(R.id.forgotPassBot);
-        loginBot=root.findViewById(R.id.newUser);
-        account=root.findViewById(R.id.account);
-        newUser=root.findViewById(R.id.newUser);
-        passwordtt=root.findViewById(R.id.passwordtt);
+        useGoogle = root.findViewById(R.id.useGoogle);
+        forgotPassBot = root.findViewById(R.id.forgotPassBot);
+        loginBot = root.findViewById(R.id.loginBot);
+        account = root.findViewById(R.id.account);
+        newUser = root.findViewById(R.id.newUser);
+        passwordtt = root.findViewById(R.id.passwordtt);
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference("Profile");
         login_cred = new Login_Cred();
@@ -132,10 +133,10 @@ public class SignInfrag extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            Toast.makeText(getContext(), "pottyyyykrlon frandzzzzzz", Toast.LENGTH_SHORT).show();
                             login_cred = snapshot.getValue(Login_Cred.class);
                             addDataTosharedPref();
                             startActivity(new Intent(getContext(), Home.class));
+                            getActivity().finish();
                         }
                     }
                     @Override
@@ -201,9 +202,10 @@ public class SignInfrag extends Fragment {
                     // Sign in success, update UI with the signed-in user's information
                     FirebaseUser user = auth.getCurrentUser();
                     startActivity(new Intent(getContext(), Home.class));
+                    getActivity().finish();
                 } else {
                     // If sign in fails, display a message to the user.
-                    Toast.makeText(getContext(), "YOU ARE FUCKED!!!!!", Toast.LENGTH_SHORT).show();
+
                     // ...
                 }
             }

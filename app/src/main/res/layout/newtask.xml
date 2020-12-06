@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.05" />
 
     <Button
-        android:id="@+id/CancelBot1"
+        android:id="@+id/deleteBot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"

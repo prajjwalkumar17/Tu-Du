@@ -33,7 +33,7 @@
             android:text="Save" />
 
         <Button
-            android:id="@+id/CancelBot1"
+            android:id="@+id/deleteBot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
