@@ -1,30 +1,29 @@
 package com.rejointech.tu_du.Adapters;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rejointech.tu_du.R;
-import com.rejointech.tu_du.model.TaskData;
+import com.rejointech.tu_du.model.ModelTask;
 
 import java.util.List;
-public class TodoTasks extends RecyclerView.Adapter<TodoTasks.viewholderr> {
-    Context context;
-    List<TaskData> list;
-    TaskData taskData;
 
-    public TodoTasks(Context context, List<TaskData> list) {
+public class AdapterTask extends RecyclerView.Adapter<AdapterTask.viewholderr> {
+    Context context;
+    List<ModelTask> list;
+    ModelTask modelTask;
+
+    public AdapterTask(Context context, List<ModelTask> list) {
         this.context = context;
         this.list = list;
     }
@@ -39,9 +38,9 @@ public class TodoTasks extends RecyclerView.Adapter<TodoTasks.viewholderr> {
 
     @Override
     public void onBindViewHolder(@NonNull viewholderr holder, int position) {
-        taskData = list.get(position);
-        holder.textView.setText(taskData.getTaskData());
-        holder.checkBox.setChecked(taskData.getStatus());
+        modelTask = list.get(position);
+        holder.textView.setText(modelTask.getTaskData());
+        holder.checkBox.setChecked(modelTask.getStatus());
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -52,8 +51,9 @@ public class TodoTasks extends RecyclerView.Adapter<TodoTasks.viewholderr> {
                 holder.editBott.setVisibility(View.VISIBLE);
             }
         });
-    }
 
+
+    }
 
     @Override
     public int getItemCount() {

@@ -1,15 +1,15 @@
 package com.rejointech.tu_du.model;
 
-public class TaskData {
+public class ModelTask {
 
     int ref;
     boolean status;
     String taskData;
 
-    public TaskData() {
+    public ModelTask() {
     }
 
-    public TaskData(int ref, boolean status, String taskData) {
+    public ModelTask(int ref, boolean status, String taskData) {
         this.ref = ref;
         this.status = status;
         this.taskData = taskData;

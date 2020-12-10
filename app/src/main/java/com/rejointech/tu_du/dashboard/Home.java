@@ -1,11 +1,13 @@
 package com.rejointech.tu_du.dashboard;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,22 +23,23 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rejointech.tu_du.Adapters.TodoTasks;
+import com.rejointech.tu_du.Adapters.AdapterTask;
 import com.rejointech.tu_du.R;
-import com.rejointech.tu_du.model.TaskData;
+import com.rejointech.tu_du.model.ModelTask;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 public class Home extends AppCompatActivity {
     RecyclerView recyclerView;
-    List<TaskData> list = new ArrayList<>();
+    List<ModelTask> list = new ArrayList<>();
     DatabaseReference databaseReference, databaseReference1;
     FirebaseAuth auth;
     FloatingActionButton newTask;
     Dialog dialog;
     Button botSave, botCancel;
     EditText editText;
+    AdapterTask adapterTask;
 
     @Override
     public void onBackPressed() {
@@ -68,6 +71,7 @@ public class Home extends AppCompatActivity {
             }
         });
         addDataToRecyclerView();
+        swipeHandlerOfRecyclerView();
     }
 
 
@@ -102,15 +106,15 @@ public class Home extends AppCompatActivity {
         if (editText.getText().toString().isEmpty()) {
             Toast.makeText(Home.this, "Enter a Task to add", Toast.LENGTH_SHORT).show();
         } else {
-            TaskData taskData1 = new TaskData();
-            taskData1.setTaskData(editText.getText().toString());
-            taskData1.setStatus(false);
-            taskData1.setRef((int) System.currentTimeMillis());
+            ModelTask modelTask1 = new ModelTask();
+            modelTask1.setTaskData(editText.getText().toString());
+            modelTask1.setStatus(false);
+            modelTask1.setRef((int) System.currentTimeMillis());
             Toast.makeText(Home.this, editText.getText().toString(), Toast.LENGTH_SHORT).show();
             databaseReference1
                     .child(Objects.requireNonNull(auth.getUid()))
                     .child(String.valueOf(System.currentTimeMillis()))
-                    .setValue(taskData1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    .setValue(modelTask1).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     dialog.dismiss();
@@ -134,17 +138,40 @@ public class Home extends AppCompatActivity {
                         list.clear();
                         if (snapshot.exists()) {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                list.add(dataSnapshot.getValue(TaskData.class));
+                                list.add(dataSnapshot.getValue(ModelTask.class));
                             }
-                            TodoTasks todoTasks = new TodoTasks(Home.this, list);
+                            adapterTask = new AdapterTask(Home.this, list);
                             recyclerView.setLayoutManager(new LinearLayoutManager(Home.this));
-                            recyclerView.setAdapter(todoTasks);
+                            recyclerView.setAdapter(adapterTask);
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(Home.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void swipeHandlerOfRecyclerView() {
+//        List<ModelTask> deletedMovie = new ArrayList<>();
+        ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                final int position = viewHolder.getAdapterPosition();
+//                deletedMovie=list.get(position);position
+                list.remove(position);
+                adapterTask.notifyItemRemoved(position);
+
+            }
+        };
+        ItemTouchHelper itemTouchHelperr = new ItemTouchHelper(itemTouchHelper);
+        itemTouchHelperr.attachToRecyclerView(recyclerView);
+
     }
 }
